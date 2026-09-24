@@ -37,6 +37,8 @@ KEYS_PATH="vendor/evolution-priv/keys"
 echo
 echo "==> Initializing Evolution X..."
 
+rm -rf .repo/local_manifests
+
 repo init \
     -u https://github.com/Evolution-X/manifest.git \
     -b "$ROM_BRANCH" \
