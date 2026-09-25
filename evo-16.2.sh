@@ -3,7 +3,7 @@
 set -e
 
 echo "=============================================="
-echo "   RMX1851 Evolution X 11.x Crave Builder"
+echo "   RMX1851 Evolution X 16.2 Crave Builder"
 echo "=============================================="
 
 #############################################
@@ -26,9 +26,6 @@ KERNEL_PATH="kernel/realme/sdm710"
 VENDOR_PATH="vendor/realme/RMX1851"
 
 CLANG_PATH="prebuilts/clang/host/linux-x86/clang-proton"
-
-KEYS_REPO="https://github.com/Evolution-X/vendor_evolution-priv_keys-template"
-KEYS_PATH="vendor/evolution-priv/keys"
 
 #############################################
 # INITIALIZE EVOLUTION X
@@ -202,31 +199,29 @@ DOMAIN_TE="system/sepolicy/private/domain.te"
 sed -i '744s/^[[:space:]]*/# /' "$DOMAIN_TE"
 
 #############################################
-# EVOLUTION X PRIVATE SIGNING KEYS
+# DOLBY
 #############################################
 
 echo
 echo "=============================================="
-echo " Setting up Evolution X signing keys"
+echo " Cloning Dolby integration"
 echo "=============================================="
-
-rm -rf "$KEYS_PATH"
 
 git clone \
     --depth=1 \
-    "$KEYS_REPO" \
-    "$KEYS_PATH"
+    https://github.com/tranQuila-Project/vendor_lunaris_dolby.git \
+    vendor/lunaris/dolby
+
+#############################################
+# BUILD SIGNING ENVIRONMENT
+#############################################
 
 echo
-echo "==> Generating Evolution X signing keys..."
+echo "=============================================="
+echo " Creating signed build environment"
+echo "=============================================="
 
-cd "$KEYS_PATH"
-
-chmod +x keys.sh
-
-./keys.sh
-
-cd - >/dev/null
+curl -sSf https://raw.githubusercontent.com/Trijal08/crDroid-build-signed-script-auto/main/create-signed-env.sh | /usr/bin/env bash
 
 #############################################
 # BUILD ENVIRONMENT
@@ -238,6 +233,9 @@ echo " Preparing Android build environment"
 echo "=============================================="
 
 source build/envsetup.sh
+
+export BUILD_USERNAME=SOURABH
+export BUILD_HOSTNAME=crave
 
 #############################################
 # LUNCH
@@ -280,3 +278,4 @@ echo
 echo "=============================================="
 echo " Done"
 echo "=============================================="
+
