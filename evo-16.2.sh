@@ -224,7 +224,9 @@ cd "$KEYS_PATH"
 
 chmod +x keys.sh
 
-./keys.sh
+./keys.sh || {
+    echo "WARNING: keys.sh returned non-zero status; continuing with generated keys."
+}
 
 cd - >/dev/null
 
@@ -238,6 +240,9 @@ echo " Preparing Android build environment"
 echo "=============================================="
 
 source build/envsetup.sh
+
+export BUILD_USERNAME=SOURABH
+export BUILD_HOSTNAME=crave
 
 #############################################
 # LUNCH
