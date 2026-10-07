@@ -15,17 +15,7 @@ ROM_BRANCH="bka"
 DEVICE_REPO="https://github.com/Blacklucifer82/device_realme_RMX1851-A16.git"
 DEVICE_BRANCH="evo-16"
 
-KERNEL_REPO="https://github.com/Blacklucifer82/android_kernel_realme_sdm710.git"
-KERNEL_BRANCH="16-bpf"
-
-VENDOR_REPO="https://github.com/Blacklucifer82/vendor-realme-RMX1851-A16.git"
-VENDOR_BRANCH="16"
-
 DEVICE_PATH="device/realme/RMX1851"
-KERNEL_PATH="kernel/realme/sdm710"
-VENDOR_PATH="vendor/realme/RMX1851"
-
-CLANG_PATH="prebuilts/clang/host/linux-x86/clang-proton"
 
 #############################################
 # INITIALIZE EVOLUTION X
@@ -67,56 +57,6 @@ git clone \
     --branch "$DEVICE_BRANCH" \
     "$DEVICE_REPO" \
     "$DEVICE_PATH"
-
-#############################################
-# KERNEL
-#############################################
-
-echo
-echo "==> Cloning RMX1851 kernel..."
-
-rm -rf "$KERNEL_PATH"
-
-mkdir -p "$(dirname "$KERNEL_PATH")"
-
-git clone \
-    --depth=1 \
-    --branch "$KERNEL_BRANCH" \
-    "$KERNEL_REPO" \
-    "$KERNEL_PATH"
-
-#############################################
-# VENDOR
-#############################################
-
-echo
-echo "==> Cloning RMX1851 vendor..."
-
-rm -rf "$VENDOR_PATH"
-
-mkdir -p "$(dirname "$VENDOR_PATH")"
-
-git clone \
-    --depth=1 \
-    --branch "$VENDOR_BRANCH" \
-    "$VENDOR_REPO" \
-    "$VENDOR_PATH"
-
-#############################################
-# CLANG
-#############################################
-
-echo
-echo "==> Cloning Proton Clang..."
-
-rm -rf "$CLANG_PATH"
-
-mkdir -p "$(dirname "$CLANG_PATH")"
-
-git clone \
-    --depth=1 \
-    https://github.com/kdrag0n/proton-clang.git \
-    "$CLANG_PATH"
 
 #############################################
 # CONNECTIVITY CHERRY-PICKS
