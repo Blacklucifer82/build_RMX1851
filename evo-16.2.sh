@@ -176,10 +176,16 @@ echo "=============================================="
 echo " Cloning Dolby integration"
 echo "=============================================="
 
-git clone \
-    --depth=1 \
-    https://github.com/tranQuila-Project/vendor_lunaris_dolby.git \
-    vendor/lunaris/dolby
+if [ -d "vendor/lunaris/dolby/.git" ]; then
+    echo ">>> Dolby repository already exists, skipping clone."
+elif [ -e "vendor/lunaris/dolby" ]; then
+    echo "ERROR: Dolby path exists but is not a Git repository."
+    exit 1
+else
+    git clone --depth=1 \
+        https://github.com/tranQuila-Project/vendor_lunaris_dolby.git \
+        vendor/lunaris/dolby || exit 1
+fi
 
 #############################################
 # BUILD SIGNING ENVIRONMENT
